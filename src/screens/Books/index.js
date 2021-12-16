@@ -9,6 +9,8 @@ import {
   SafeAreaView,
 } from "react-native";
 
+import { Book } from "../../components/Book";
+
 import axios from "axios";
 
 export function Books() {
@@ -25,30 +27,11 @@ export function Books() {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text>BookStore</Text>
-        <Text>{books.length}</Text>
         <FlatList
           numColumns={3}
           data={books}
           keyExtractor={(book, index) => index}
-          renderItem={(book) => (
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "column",
-                margin: 1,
-              }}
-            >
-              <Text style={styles.title}>Title: {book?.title}</Text>
-              <Text>Price: {book?.price} $</Text>
-              <Image
-                style={{ width: 100, height: 100 }}
-                source={{
-                  uri: `https://itbook.store/img/books/9781617295645.png`,
-                }}
-              />
-            </View>
-          )}
+          renderItem={({ item: book }) => <Book book={book} />}
         />
       </View>
     </SafeAreaView>
@@ -69,5 +52,21 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "#000",
+    fontSize: 12,
+    fontWeight: "bold",
+  },
+  card: {
+    flex: 1,
+    flexDirection: "column",
+    margin: 1,
+    borderRadius: 6,
+    elevation: 3,
+    backgroundColor: "#fff",
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: "#333",
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    marginHorizontal: 4,
+    marginVertical: 4,
   },
 });
